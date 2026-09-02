@@ -1,0 +1,362 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DESIGN TOKENS — lihat skills/design-system.md
+   Semua warna lewat CSS variable. Light default, [data-theme="dark"] override.
+   [data-mood="..."] menggeser aksen (mood selector) tanpa mengubah struktur.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* base neutrals */
+  --color-bg: #fbf5f0; /* warm cream */
+  --color-bg-elevated: #fffaf7;
+  --color-fg: #3d2b3a; /* plum-brown, bukan hitam */
+  --color-fg-muted: #8a7387;
+  --color-line: #ecdcdc;
+
+  /* brand */
+  --color-pink: #f6b9c9; /* soft pastel pink */
+  --color-pink-deep: #e88fa9;
+  --color-lavender: #cdbff0; /* soft lavender */
+  --color-lavender-deep: #a993e6;
+  --color-cream: #fff2e3;
+
+  /* dessert accents (dipakai tipis) */
+  --color-butter: #fde9a8;
+  --color-mint: #cdeee3;
+
+  /* holographic shimmer */
+  --holo: linear-gradient(
+    115deg,
+    #f6b9c9 0%,
+    #cdbff0 25%,
+    #cdeee3 50%,
+    #fde9a8 75%,
+    #f6b9c9 100%
+  );
+
+  /* scene backgrounds — digeser GSAP sesuai scroll progress */
+  --scene-a: var(--color-bg);
+  --scene-b: #fbeef1;
+
+  --radius: 1.25rem;
+  --shadow-soft: 0 10px 30px -12px rgb(61 43 58 / 0.18);
+  --shadow-glow: 0 0 0 1px rgb(255 255 255 / 0.6) inset, 0 14px 40px -14px rgb(232 143 169 / 0.45);
+
+  --glass: rgb(255 255 255 / 0.55);
+  --glass-strong: rgb(255 255 255 / 0.8);
+  --candle: rgb(253 233 168 / 0);
+}
+
+[data-theme="dark"] {
+  --color-bg: #1c1620; /* gelap lembut, bukan hitam */
+  --color-bg-elevated: #251d2b;
+  --color-fg: #f6eef3;
+  --color-fg-muted: #b8a6b6;
+  --color-line: #3a2f40;
+
+  --color-pink: #f2a7bd;
+  --color-pink-deep: #ef8fae;
+  --color-lavender: #c4b3f2;
+  --color-lavender-deep: #b09aee;
+  --color-cream: #2b2231;
+
+  --color-butter: #f6dd8f;
+  --color-mint: #b9e3d5;
+
+  --scene-a: var(--color-bg);
+  --scene-b: #26192a;
+
+  --shadow-soft: 0 10px 30px -12px rgb(0 0 0 / 0.55);
+  --shadow-glow: 0 0 0 1px rgb(255 255 255 / 0.08) inset, 0 14px 40px -14px rgb(242 167 189 / 0.35);
+
+  --glass: rgb(37 29 43 / 0.55);
+  --glass-strong: rgb(37 29 43 / 0.85);
+}
+
+/* MOOD — menggeser aksen & scene-b saja */
+[data-mood="sunset"] {
+  --color-pink: #f8c1b0;
+  --color-pink-deep: #ef9a86;
+  --color-lavender: #f3cbb6;
+  --color-lavender-deep: #e8a98e;
+  --scene-b: #fbe9df;
+}
+[data-mood="candy"] {
+  --color-pink: #f9b4d0;
+  --color-pink-deep: #f08ab8;
+  --color-lavender: #bfe8dc;
+  --color-lavender-deep: #86d3be;
+  --scene-b: #fbeaf3;
+}
+[data-mood="midnight"] {
+  --color-lavender: #b9b1f0;
+  --color-lavender-deep: #9f93ea;
+  --scene-b: #221a2c;
+}
+[data-theme="dark"][data-mood="sunset"] {
+  --scene-b: #2b1c22;
+}
+[data-theme="dark"][data-mood="candy"] {
+  --scene-b: #2a1a27;
+}
+
+@theme inline {
+  --color-background: var(--color-bg);
+  --color-background-elevated: var(--color-bg-elevated);
+  --color-foreground: var(--color-fg);
+  --color-muted: var(--color-fg-muted);
+  --color-line: var(--color-line);
+  --color-pink: var(--color-pink);
+  --color-pink-deep: var(--color-pink-deep);
+  --color-lavender: var(--color-lavender);
+  --color-lavender-deep: var(--color-lavender-deep);
+  --color-cream: var(--color-cream);
+  --color-butter: var(--color-butter);
+  --color-mint: var(--color-mint);
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.5);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-glow: var(--shadow-glow);
+
+  --animate-shimmer: shimmer 3.2s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-twinkle: twinkle 2.4s ease-in-out infinite;
+  --animate-flicker: flicker 1.1s ease-in-out infinite;
+  --animate-eq: eq 0.9s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-8px) rotate(var(--r, 0deg));
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes flicker {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1) translateY(0);
+    opacity: 1;
+  }
+  35% {
+    transform: scaleY(1.08) scaleX(0.94) translateY(-1px);
+    opacity: 0.92;
+  }
+  70% {
+    transform: scaleY(0.95) scaleX(1.05) translateY(1px);
+    opacity: 1;
+  }
+}
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.toast-in {
+  animation: toast-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* ───────────────────────────── BASE ───────────────────────────── */
+html {
+  background: var(--color-bg);
+  color-scheme: light;
+  scroll-behavior: auto; /* Lenis handle smooth scroll */
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+html,
+body {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+body {
+  @apply bg-background text-foreground font-sans antialiased;
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+/* Saat unlock screen aktif, kunci scroll */
+html[data-locked="true"] body {
+  overflow: hidden;
+  height: 100dvh;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-pink) 60%, transparent);
+  color: var(--color-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-pink-deep);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ───────────────────────────── UTILITIES ───────────────────────────── */
+@utility glass {
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+}
+@utility glass-strong {
+  background: var(--glass-strong);
+  backdrop-filter: blur(24px) saturate(1.25);
+  -webkit-backdrop-filter: blur(24px) saturate(1.25);
+  border: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+}
+
+/* Glossy "lip-gloss" finish untuk tombol/elemen interaktif */
+@utility glossy {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0) 55%),
+    linear-gradient(135deg, var(--color-pink), var(--color-lavender));
+  color: var(--color-fg);
+  box-shadow: var(--shadow-glow);
+  border: 1px solid rgb(255 255 255 / 0.5);
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+[data-theme="dark"] .glossy {
+  color: #2a1f2b;
+}
+.glossy:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.08);
+}
+.glossy:active {
+  transform: translateY(0) scale(0.985);
+}
+
+/* Holographic text / border */
+@utility holo-text {
+  background: var(--holo);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: var(--animate-shimmer);
+}
+@utility holo-ring {
+  position: relative;
+}
+.holo-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--holo);
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Polaroid */
+@utility polaroid {
+  background: #fff;
+  color: #3d2b3a;
+  padding: 0.75rem 0.75rem 1.75rem;
+  border-radius: 6px;
+  box-shadow: var(--shadow-soft);
+  transform: rotate(var(--tilt, 0deg));
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.4s ease;
+}
+
+/* Section padding standar */
+@utility section-pad {
+  padding-block: clamp(5rem, 14vw, 9rem);
+  padding-inline: clamp(1.25rem, 5vw, 3rem);
+}
+
+/* 3D flip card */
+@utility preserve-3d {
+  transform-style: preserve-3d;
+}
+@utility backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+@utility perspective {
+  perspective: 1200px;
+}
+
+/* ───────────────────────────── REDUCED MOTION ───────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Swiper overrides */
+.swiper {
+  overflow: visible;
+  padding-block: 1.5rem;
+}
+.swiper-slide {
+  width: min(78vw, 320px);
+}
+@media (min-width: 768px) {
+  .swiper-slide {
+    width: 320px;
+  }
+}

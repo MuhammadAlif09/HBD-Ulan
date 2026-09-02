@@ -1,0 +1,39 @@
+{
+  "name": "wulan-birthday",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website ulang tahun interaktif untuk Wulan — Next.js 16 + TypeScript + Tailwind v4. Lihat AGENTS.md.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
+    "canvas-confetti": "^1.9.3",
+    "clsx": "^2.1.1",
+    "gsap": "^3.12.5",
+    "howler": "^2.2.4",
+    "lucide-react": "^0.475.0",
+    "next": "16.0.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "swiper": "^11.2.4",
+    "tailwind-merge": "^3.0.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/howler": "^2.2.12",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "postcss": "^8.5",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5"
+  }
+}
