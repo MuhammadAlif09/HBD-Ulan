@@ -21,8 +21,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: `Untuk ${person.name} — ${person.age}`,
-  description: "Sebuah film pendek interaktif, khusus untukmu.",
+  title: "HBD Wulan",
+  description: "Website ulang tahun interaktif untuk Wulan",
+  openGraph: {
+    title: "HBD Wulan",
+    description: "Website ulang tahun interaktif untuk Wulan",
+  },
   robots: { index: false, follow: false },
 };
 

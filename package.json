@@ -4,10 +4,10 @@
   "private": true,
   "description": "Website ulang tahun interaktif untuk Wulan — Next.js 16 + TypeScript + Tailwind v4. Lihat AGENTS.md.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000 -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

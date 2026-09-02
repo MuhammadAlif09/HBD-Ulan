@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ─────────────────────────────────────────────────────────────────────────────
    DESIGN TOKENS — lihat skills/design-system.md
    Semua warna lewat CSS variable. Light default, [data-theme="dark"] override.
