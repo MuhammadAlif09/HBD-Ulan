@@ -202,18 +202,39 @@ export const gallery: readonly GalleryTab[] = [
 ] as const;
 
 // ───────────────────────────── 19 THINGS ─────────────────────────────
-// EDIT: isi 19 alasan personal. Sengaja dikosongkan (bukan kalimat generik).
-export const nineteenThings: readonly string[] = Array.from({ length: 19 }, (_, i) => `EDIT: alasan #${i + 1}`);
+// 19 alasan personal untuk Wulan (bisa disesuaikan kapan saja)
+export const nineteenThings: readonly string[] = [
+  "Senyum manismu yang selalu sukses bikin hari paling capek langsung kerasa adem dan tenang.",
+  "Waktu kamu masak di dapur—walau cuma kalau lagi nggak males, tapi rasanya selalu juara!",
+  "Mode ngambek gemasmu; yang padahal cuma butuh disenyumin bentar, kamu langsung luluh dan ketawa lagi.",
+  "Gaya makeup 'clean girl' kamu yang selalu rapi, aesthetic, dan anggun banget dilihatnya.",
+  "Reaksi heboh dan matamu yang berbinar-binar tiap kali liat kucing lucu di jalan.",
+  "Kecintaanmu sama yang manis-manis, apalagi ekspresi bahagianya pas makan es krim favorit.",
+  "Selera gayamu yang aesthetic dan keren—outfit kamu selalu matching dengan sentuhan Y2K yang manis.",
+  "Tawa lepasmu yang nular ke semua orang, apalagi kalau ketawa sampai matanya ikut menyipit imut.",
+  "Perhatian-perhatian kecilmu yang sering diam-diam bikin aku terharu dan merasa begitu disayang.",
+  "Cara kamu cerita hal apa pun dengan ekspresi wajah yang hidup, seru, dan penuh semangat.",
+  "Suara manjamu waktu lagi pengen ditemenin ngobrol atau pas lagi butuh senderan ternyaman.",
+  "Kerja keras dan dedikasimu waktu ngerjain sesuatu—bangga banget pas kamu dapet Best Volunteer!",
+  "Pipi imutmu waktu lagi kenyang makan atau pas lagi manyun cemberut lucu.",
+  "Caramu selalu bisa mendengarkan dan mengerti aku, bikin aku merasa diterima apa adanya.",
+  "Kebiasaan-kebiasaan random kamu yang selalu sukses bikin aku tersenyum sendiri tiap kali inget.",
+  "Momen-momen sederhana berdua—dari jalan santai sampai cuma duduk bareng—yang selalu terasa istimewa.",
+  "Hati kamu yang lembut, tulus, dan selalu peduli sama orang-orang di sekitarmu.",
+  "Kesabaranmu buat tumbuh bareng aku, jadi tempat pulang paling damai dan nyaman di dunia.",
+  "Fakta bahwa dari miliaran orang di bumi, takdir membawaku untuk menemukan dan mencintai kamu, Wulan.",
+] as const;
 
 export const thingsComplete = {
-  title: "Kamu buka semuanya.",
-  message: "EDIT: pesan spesial setelah 19 kartu dibuka semua.",
+  title: "19 Alasan Lengkap Terbuka! 💖",
+  message:
+    "Dan 19 ini baru permulaan. Masih ada ribuan alasan lain yang bikin aku bersyukur punya kamu di hidupku. Terima kasih sudah lahir dan tumbuh jadi Wulan yang begitu istimewa.",
 } as const;
 
 // ───────────────────────────── TOMBOL RAHASIA ─────────────────────────────
 export const secretButton = {
-  label: "Tombol Permen Kiss", // EDIT: nama tombol sesuai inside joke
-  reaction: "EDIT: teks reaksi lucu yang muncul", // EDIT
+  label: "Tombol Permen Kiss 🍬", // EDIT: nama tombol sesuai inside joke
+  reaction: "Cie nemu tombol rahasia! Satu permen kiss manis khusus buat Wulan tersayang 😽✨", // EDIT
   stickers: ["kiss", "cat", "star", "icecream"] as const, // urutan stiker yang muncul
 } as const;
 
@@ -237,7 +258,7 @@ export const achievements: Record<AchievementId, { title: string; detail: string
   "gallery-explorer": { title: "Penjelajah Kenangan", detail: "Lihat semua tab galeri." },
   "read-every-card": { title: "Read Every Card", detail: "19/19 kartu dibuka." },
   "secret-found": { title: "Inside Joke Detected", detail: "Kamu nemu tombolnya." },
-  "bouquet-bloomed": { title: "Bloom", detail: "Buketnya mekar semua." },
+  "bouquet-bloomed": { title: "Bloom", detail: "3 Bunga cerbera mekar sempurna." },
   "blew-the-candle": { title: "Blew The Candle", detail: "Make a wish." },
   "read-the-letter": { title: "Read The Letter", detail: "Sampai titik terakhir." },
   "opened-the-gift": { title: "Opened The Gift", detail: "Sampai jumpa di dunia nyata." },
@@ -248,37 +269,37 @@ export const achievements: Record<AchievementId, { title: string; detail: string
 export const gift = {
   sectionTitle: "Momen Hadiah",
   cakeTitle: "Tiup lilinnya",
-  cakeHint: "Klik lilin — atau izinkan mikrofon dan tiup beneran.",
+  cakeHint: "Klik lilin angka 19 — atau izinkan mikrofon dan tiup beneran.",
   cakeMicButton: "Coba tiup pakai mic",
   cakeMicDenied: "Mic-nya diblokir, ya. Klik lilinnya aja, sama-sama valid.",
-  cakeWishText: "Make a wish. Aku juga bikin satu — tentang kamu.", // EDIT
-  bouquetTitle: "Buat kamu",
-  bouquetHint: "Tap buketnya",
-  bouquetCard: "EDIT: pesan kartu buket (1-2 kalimat pendek).",
+  cakeWishText: "Make a wish... Semoga semua impianmu di umur 19 ini terkabul satu per satu.", // EDIT
+  bouquetTitle: "3 Tangkai Bunga Cerbera",
+  bouquetHint: "Tap buket untuk mekarkan bunganya",
+  bouquetCard: "Untuk Wulan tercinta: Tiga cerbera ini melambangkan ketulusan, keceriaan, dan rasa sayangku yang mekar setiap hari untukmu.",
 } as const;
 
 export const letter = {
   envelopeLabel: "Buka suratnya",
-  greeting: "Untuk Wulan,", // EDIT
+  greeting: "Untuk Wulan tersayang,", // EDIT
   // EDIT: isi surat — pisahkan paragraf dengan baris kosong
-  body: `EDIT: isi surat, paragraf pertama.
+  body: `Selamat ulang tahun yang ke-19, Wulan.
 
-EDIT: paragraf kedua.
+Nggak terasa waktu berjalan cepat banget, dan hari ini kamu resmi menginjak usia 19 tahun. Dari sekian banyak babak yang sudah kamu lalui, aku selalu bersyukur semesta mempertemukan kita dan memberiku kesempatan untuk menemani langkahmu.
 
-EDIT: paragraf ketiga — bagian paling jujur.
+Terima kasih sudah selalu jadi perempuan yang luar biasa—yang tawanya selalu menenangkan, yang keberadaannya selalu membawa kehangatan, dan yang kesabarannya selalu jadi rumah paling nyaman buat aku pulang.
 
-EDIT: paragraf penutup.`,
-  signoff: "Selamat ulang tahun ke-19.", // EDIT
+Di umur yang baru ini, aku berdoa semoga kamu selalu dikelilingi kebahagiaan, dijauhkan dari hal-hal yang bikin sedih, dan setiap impian serta harapan yang kamu simpan dalam hati perlahan terwujud. Jangan pernah ragu untuk melangkah, karena apa pun yang terjadi nanti, aku akan selalu ada di sini, bangga dan mendukungmu sepenuh hati.`,
+  signoff: "Dengan segenap rasa sayang, selalu untukmu.", // EDIT
 } as const;
 
 // ───────────────────────────── ENDING ─────────────────────────────
 export const ending = {
   title: "Terima kasih sudah jadi kamu.",
-  message: "EDIT: pesan penutup hangat, 2-3 kalimat.",
-  giftButton: "Buka Hadiah",
-  finalTitle: "Satu lagi.",
-  finalMessage: "EDIT: pesan penutup final — bisa arahkan ke hadiah fisik ('cek laci meja kamu', dsb).",
-  konamiMessage: "EDIT: pesan lucu kalau konami code ketemu.",
+  message: "Sembilan belas tahun perjalananmu, dan aku berharap bisa terus menemani di tahun-tahun berikutnya. Kamu adalah hadiah terindah di hidupku.",
+  giftButton: "Buka Kotak Hadiah",
+  finalTitle: "Kado Spesial Buat Wulan 🎁",
+  finalMessage: "Voucher kencan spesial ulang tahun ke-19 ini resmi aktif! Cek juga kado fisik yang udah kusiapkan spesial buat kamu yaa!",
+  konamiMessage: "Wah kamu nemu easter egg tersembunyi! Kamu dapet gelar Gamer Girl paling imut sedunia 🎮💖",
 } as const;
 
 // Memory box items (easter egg)
@@ -286,11 +307,57 @@ export interface MemoryItem {
   id: string;
   kind: "ticket" | "chat" | "note" | "photo";
   title: string;
+  date?: string;
   detail: string;
+  badge?: string;
 }
 export const memoryBox: readonly MemoryItem[] = [
-  { id: "m1", kind: "ticket", title: "EDIT: tiket", detail: "EDIT: tiket nonton/kereta/apa pun." },
-  { id: "m2", kind: "chat", title: "EDIT: screenshot chat", detail: "EDIT: kutipan chat lucu." },
-  { id: "m3", kind: "note", title: "EDIT: note kecil", detail: "EDIT: isi note." },
-  { id: "m4", kind: "photo", title: "EDIT: foto", detail: "EDIT: keterangan foto." },
+  {
+    id: "m1",
+    kind: "ticket",
+    title: "Tiket Nonton & Jalan Berdua",
+    date: "Awal Cerita",
+    badge: "Cinema Date",
+    detail: "Tiket bioskop pertama yang masih kusimpan rapi di dompet. Masih ingat betul betapa deg-degannya duduk di samping kamu seharian.",
+  },
+  {
+    id: "m2",
+    kind: "chat",
+    title: "DM Pertama di Instagram",
+    date: "Momen Awal",
+    badge: "First DM",
+    detail: "'Halo Wulan...' Percakapan singkat yang awalnya malu-malu dan kaku, tapi siapa sangka sekarang jadi obrolan yang nggak pernah ada habisnya tiap hari.",
+  },
+  {
+    id: "m3",
+    kind: "chat",
+    title: "Chat Ngambek Minta Es Krim",
+    date: "Suatu Sore",
+    badge: "Ice Cream Time",
+    detail: "'Pokoknya harus es krim sekarang juga, gamau tau! :p' Screenshot obrolan gemas kamu yang selalu bikin aku senyum-senyum sendiri tiap kali dibaca ulang.",
+  },
+  {
+    id: "m4",
+    kind: "note",
+    title: "Sticky Note Semangat",
+    date: "Catatan Kecil",
+    badge: "Sweet Note",
+    detail: "Kertas note kecil tulisan tangan: 'Semangat yaa hari ini! Jangan lupa makan & minum air yang cukup ❤️' yang selalu jadi booster energiku.",
+  },
+  {
+    id: "m5",
+    kind: "photo",
+    title: "Foto Candid Pas Ketawa Lepas",
+    date: "Kenangan Manis",
+    badge: "Precious Smile",
+    detail: "Momen saat kamu ketawa lepas tanpa sadar kamera pas kita lagi jajan. Matamu yang menyipit imut dan senyum tulus itu jadi foto favoritku sepanjang masa.",
+  },
+  {
+    id: "m6",
+    kind: "ticket",
+    title: "Momen Terbaik: Best Volunteer Kamu",
+    date: "Hari Bangga",
+    badge: "Proud of You",
+    detail: "Waktu namamu dipanggil maju ke depan dan dapet penghargaan Best Volunteer. Rasa bangga dan kagumku ke kamu bener-bener meluap hari itu.",
+  },
 ] as const;

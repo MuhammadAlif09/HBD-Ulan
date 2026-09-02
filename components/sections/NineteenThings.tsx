@@ -76,14 +76,32 @@ export function NineteenThings() {
           Tap tiap kartu satu per satu untuk membuka alasannya.
         </p>
 
-        {/* Progress Tracker */}
-        <div className="mt-6 inline-flex items-center gap-2 rounded-full glass-strong px-4 py-1.5 text-xs font-medium text-foreground shadow-soft border border-white/40 dark:border-white/10">
-          <span>Progress:</span>
-          <span className="font-bold text-pink-deep">{openedCards.length} / 19 dibuka</span>
-          {openedCards.length === 19 && (
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-pink-deep text-white text-[10px]">
-              ✓
-            </span>
+        {/* Progress Tracker & Quick Actions */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <div className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-1.5 text-xs font-medium text-foreground shadow-soft border border-white/40 dark:border-white/10">
+            <span>Progress:</span>
+            <span className="font-bold text-pink-deep">{openedCards.length} / 19 dibuka</span>
+            {openedCards.length === 19 && (
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-pink-deep text-white text-[10px]">
+                ✓
+              </span>
+            )}
+          </div>
+
+          {openedCards.length < 19 && (
+            <button
+              type="button"
+              onClick={() => {
+                Array.from({ length: 19 }).forEach((_, i) => openCard(i));
+                markCardsCelebrated();
+                unlockAchievement("read-every-card");
+                shootCelebrationBurst();
+              }}
+              className="inline-flex items-center gap-1.5 rounded-full bg-pink/20 hover:bg-pink/30 px-3.5 py-1.5 text-xs font-semibold text-pink-deep transition-all duration-200 border border-pink/40"
+            >
+              <Sparkle className="h-3 w-3" />
+              <span>Buka Semua Sekaligus</span>
+            </button>
           )}
         </div>
       </div>
@@ -107,7 +125,7 @@ export function NineteenThings() {
                 }
               }}
               aria-label={`Kartu #${idx + 1}: ${isOpened ? text : "Tertutup, klik untuk buka"}`}
-              className="group relative h-40 sm:h-44 w-full cursor-pointer [perspective:1000px] focus-visible:outline-none"
+              className="group relative h-44 sm:h-48 w-full cursor-pointer [perspective:1000px] focus-visible:outline-none"
             >
               <div
                 className={cn(
@@ -129,14 +147,14 @@ export function NineteenThings() {
                 </div>
 
                 {/* Back of Card (Revealed Reason) */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl bg-gradient-to-tr from-pink/25 via-lavender/20 to-cream/30 p-3 text-center [backface-visibility:hidden] [transform:rotateY(180deg)] border border-pink/40">
-                  <span className="text-[10px] font-semibold text-pink-deep uppercase tracking-wider mb-1">
+                <div className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl bg-gradient-to-tr from-pink/25 via-lavender/20 to-cream/30 p-3.5 text-center [backface-visibility:hidden] [transform:rotateY(180deg)] border border-pink/40">
+                  <span className="text-[10px] font-bold text-pink-deep uppercase tracking-wider mb-1.5">
                     #{idx + 1}
                   </span>
-                  <p className="text-xs sm:text-sm font-medium text-foreground leading-snug line-clamp-4">
+                  <p className="text-[11.5px] sm:text-xs font-medium text-foreground leading-snug line-clamp-5">
                     {text}
                   </p>
-                  <Sparkle className="h-3 w-3 text-pink-deep/60 mt-2" />
+                  <Sparkle className="h-3 w-3 text-pink-deep/60 mt-1.5" />
                 </div>
               </div>
             </div>

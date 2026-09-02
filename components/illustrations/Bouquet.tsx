@@ -11,13 +11,45 @@ interface BouquetProps {
 }
 
 /**
- * Virtual Flower Bouquet (Buket Bunga) Kawaii SVG — lihat skills/cake-letter-ending.md.
- * - Cellophane wrapper Y2K glossy + pita/bow dengan cat charm
- * - Bunga pastel: soft pink roses, sprigs of lavender, gypsophila baby's breath, sweet daisy
- * - Interaksi bloom: tap to unfold & bloom flowers
+ * Virtual Flower Bouquet dengan 3 Bunga Cerbera (Gerbera Daisy) Mewah Kawaii SVG
+ * - 3 Bunga Cerbera Daisy mekar berlapis dengan putik piringan khas yang anggun:
+ *   1. Cerbera Sunset Peach / Apricot (Pusat / Tengah)
+ *   2. Cerbera Sweet Coral Pink (Kiri)
+ *   3. Cerbera Warm Vanilla Cream / Blush (Kanan)
+ * - Didampingi daun eucalyptus, baby's breath (gypsophila), dan kuncup mekar
+ * - Kertas pembungkus buket Korea aesthetic Y2K glossy + pita satin & cat charm emas
+ * - Interaksi bloom: tap untuk mekarkan ketiga cerbera dengan animasi mekar & sebaran sparkle
  */
 export function Bouquet({ bloomed, onBloom, className }: BouquetProps) {
   const id = useId();
+
+  // Helper untuk generate kelopak bunga Gerbera (Cerbera Daisy) berlapis
+  const renderCerberaPetals = (
+    petalCount: number,
+    rx: number,
+    ry: number,
+    dist: number,
+    colorClass: string,
+    strokeColor = "#ffffff"
+  ) => {
+    return Array.from({ length: petalCount }).map((_, i) => {
+      const angle = (360 / petalCount) * i;
+      return (
+        <ellipse
+          key={i}
+          cx="0"
+          cy={-dist}
+          rx={rx}
+          ry={ry}
+          transform={`rotate(${angle})`}
+          fill={colorClass}
+          stroke={strokeColor}
+          strokeWidth="0.8"
+          opacity="0.95"
+        />
+      );
+    });
+  };
 
   return (
     <div
@@ -30,218 +62,306 @@ export function Bouquet({ bloomed, onBloom, className }: BouquetProps) {
           onBloom?.();
         }
       }}
-      aria-label={bloomed ? "Buket bunga sudah mekar" : "Klik untuk membuka buket bunga"}
+      aria-label={bloomed ? "3 Bunga Cerbera mekar sempurna" : "Klik untuk membuka dan mekarkan 3 bunga cerbera"}
       className={cn(
         "group relative mx-auto block cursor-pointer select-none transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-deep",
-        className,
+        className
       )}
     >
       <svg
-        viewBox="0 0 320 360"
-        className="h-auto w-full max-w-[280px] sm:max-w-[320px] drop-shadow-md"
+        viewBox="0 0 340 380"
+        className="h-auto w-full max-w-[300px] sm:max-w-[340px] drop-shadow-md"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id={`${id}-wrap`} x1="0%" y1="0%" x2="100%" y2="100%">
+          {/* Gradients Pembungkus Buket (Korean aesthetic multi-tone) */}
+          <linearGradient id={`${id}-wrap-back`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#fffaf7" />
-            <stop offset="50%" stopColor="#fbeef1" />
-            <stop offset="100%" stopColor="#f5e0e7" />
+            <stop offset="40%" stopColor="#fbeef1" />
+            <stop offset="100%" stopColor="#f3d7e2" />
           </linearGradient>
 
-          <linearGradient id={`${id}-rose`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#fbd3de" />
-            <stop offset="100%" stopColor="#e88fa9" />
+          <linearGradient id={`${id}-wrap-fold1`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffdce5" />
+            <stop offset="100%" stopColor="#f7b7cb" />
           </linearGradient>
 
-          <linearGradient id={`${id}-lavender`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#dfd5f7" />
-            <stop offset="100%" stopColor="#a993e6" />
+          <linearGradient id={`${id}-wrap-fold2`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#e8deff" />
+            <stop offset="100%" stopColor="#cdbff0" />
           </linearGradient>
 
+          {/* Gradients Cerbera 1: Sunset Peach / Apricot */}
+          <linearGradient id={`${id}-cerbera-peach-outer`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#ffe3d8" />
+            <stop offset="100%" stopColor="#fba38d" />
+          </linearGradient>
+          <linearGradient id={`${id}-cerbera-peach-inner`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#fff0e6" />
+            <stop offset="100%" stopColor="#f78d74" />
+          </linearGradient>
+
+          {/* Gradients Cerbera 2: Sweet Blush Pink */}
+          <linearGradient id={`${id}-cerbera-pink-outer`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#ffe6ee" />
+            <stop offset="100%" stopColor="#f39bb4" />
+          </linearGradient>
+          <linearGradient id={`${id}-cerbera-pink-inner`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#fff2f6" />
+            <stop offset="100%" stopColor="#e87698" />
+          </linearGradient>
+
+          {/* Gradients Cerbera 3: Soft Butter & Coral */}
+          <linearGradient id={`${id}-cerbera-cream-outer`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#fff8e8" />
+            <stop offset="100%" stopColor="#f9cca3" />
+          </linearGradient>
+          <linearGradient id={`${id}-cerbera-cream-inner`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#fffdf7" />
+            <stop offset="100%" stopColor="#f2b485" />
+          </linearGradient>
+
+          {/* Eye / Disc Center Gradient */}
+          <radialGradient id={`${id}-cerbera-eye`} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#5a3d31" />
+            <stop offset="45%" stopColor="#7a4e3c" />
+            <stop offset="70%" stopColor="#b47b52" />
+            <stop offset="90%" stopColor="#e6a457" />
+            <stop offset="100%" stopColor="#ffd88b" />
+          </radialGradient>
+
+          {/* Pita / Ribbon Gradient */}
           <linearGradient id={`${id}-ribbon`} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#f6b9c9" />
+            <stop offset="50%" stopColor="#e8a3b8" />
             <stop offset="100%" stopColor="#cdbff0" />
           </linearGradient>
         </defs>
 
-        {/* Wrapper Cone (Back / Base) */}
+        {/* ─── KERTAS PEMBUNGKUS BELAKANG (Back Wrapping) ─── */}
         <path
-          d="M75 140 L160 325 L245 140 Q160 170 75 140 Z"
-          fill={`url(#${id}-wrap)`}
+          d="M60 140 Q40 80 170 65 Q300 80 280 140 L220 345 L120 345 Z"
+          fill={`url(#${id}-wrap-back)`}
           stroke="var(--color-line, #ecdcdc)"
           strokeWidth="2"
         />
 
-        {/* Wrapper Left Fold */}
+        {/* Lipatan Kertas Kiri & Kanan (Layering) */}
         <path
-          d="M70 135 Q120 180 160 325 L100 240 Z"
-          fill="#f6b9c9"
-          opacity="0.35"
+          d="M50 135 Q110 180 170 345 L110 260 Z"
+          fill={`url(#${id}-wrap-fold1)`}
+          opacity="0.38"
+        />
+        <path
+          d="M290 135 Q230 180 170 345 L230 260 Z"
+          fill={`url(#${id}-wrap-fold2)`}
+          opacity="0.38"
         />
 
-        {/* Wrapper Right Fold */}
-        <path
-          d="M250 135 Q200 180 160 325 L220 240 Z"
-          fill="#cdbff0"
-          opacity="0.35"
-        />
+        {/* ─── DAUN & TANGKAI HIJAU (Eucalyptus & Stems) ─── */}
+        <g className="transition-all duration-700 ease-out">
+          {/* Stems */}
+          <path d="M140 190 Q160 260 170 330" stroke="#87c7b0" strokeWidth="4" strokeLinecap="round" />
+          <path d="M170 170 Q170 250 170 330" stroke="#71b89f" strokeWidth="4.5" strokeLinecap="round" />
+          <path d="M200 190 Q180 260 170 330" stroke="#87c7b0" strokeWidth="4" strokeLinecap="round" />
 
-        {/* Flowers Layer (Behind Front Wrapper) */}
+          {/* Daun Eucalyptus Kiri */}
+          <ellipse cx="95" cy="155" rx="18" ry="11" transform="rotate(-35 95 155)" fill="#b8e4d4" stroke="#90cbb5" strokeWidth="1" />
+          <ellipse cx="78" cy="180" rx="14" ry="9" transform="rotate(-45 78 180)" fill="#c9ede0" />
+
+          {/* Daun Eucalyptus Kanan */}
+          <ellipse cx="245" cy="155" rx="18" ry="11" transform="rotate(35 245 155)" fill="#b8e4d4" stroke="#90cbb5" strokeWidth="1" />
+          <ellipse cx="262" cy="180" rx="14" ry="9" transform="rotate(45 262 180)" fill="#c9ede0" />
+
+          {/* Daun Aksen Tengah */}
+          <ellipse cx="170" cy="195" rx="12" ry="7" transform="rotate(10 170 195)" fill="#b0e0cf" />
+        </g>
+
+        {/* ─── GYPSOPHILA / BABY'S BREATH (Bunga Kecil Putih Lembut) ─── */}
+        <g opacity="0.95" className="transition-opacity duration-500">
+          <circle cx="85" cy="115" r="4.5" fill="#ffffff" stroke="#f6b9c9" strokeWidth="1.2" />
+          <circle cx="98" cy="95" r="4" fill="#ffffff" stroke="#f6b9c9" strokeWidth="1.2" />
+          <circle cx="112" cy="78" r="3.5" fill="#ffffff" stroke="#fde9a8" strokeWidth="1" />
+
+          <circle cx="228" cy="78" r="3.5" fill="#ffffff" stroke="#fde9a8" strokeWidth="1" />
+          <circle cx="242" cy="95" r="4" fill="#ffffff" stroke="#cdbff0" strokeWidth="1.2" />
+          <circle cx="255" cy="115" r="4.5" fill="#ffffff" stroke="#cdbff0" strokeWidth="1.2" />
+
+          <circle cx="170" cy="55" r="4" fill="#ffffff" stroke="#ffd88b" strokeWidth="1" />
+          <circle cx="155" cy="62" r="3" fill="#ffffff" stroke="#f6b9c9" strokeWidth="0.8" />
+          <circle cx="185" cy="62" r="3" fill="#ffffff" stroke="#cdbff0" strokeWidth="0.8" />
+        </g>
+
+        {/* ─── 3 BUNGA CERBERA (GERBERA DAISY) MEKAR ─── */}
         <g
           className={cn(
             "transition-all duration-700 ease-out origin-bottom",
-            bloomed ? "scale-100 opacity-100" : "scale-90 opacity-90",
+            bloomed ? "scale-100 opacity-100" : "scale-95 opacity-90"
           )}
         >
-          {/* Stems & Leaves */}
-          <path d="M140 180 Q155 240 160 300" stroke="#b9e3d5" strokeWidth="4" strokeLinecap="round" />
-          <path d="M160 170 Q160 235 160 300" stroke="#9edac6" strokeWidth="4" strokeLinecap="round" />
-          <path d="M180 180 Q165 240 160 300" stroke="#b9e3d5" strokeWidth="4" strokeLinecap="round" />
-          {/* Eucalyptus Leaf */}
-          <ellipse cx="115" cy="155" rx="14" ry="8" transform="rotate(-30 115 155)" fill="#cdeee3" />
-          <ellipse cx="205" cy="155" rx="14" ry="8" transform="rotate(30 205 155)" fill="#cdeee3" />
-
-          {/* Lavender Sprig (Left) */}
+          {/* ════ BUNGA 1: CERBERA SUNSET PEACH (Tengah Atas, Paling Megah) ════ */}
           <g
-            transform="translate(85, 80)"
-            className={cn("transition-transform duration-500", bloomed && "rotate-[-6deg]")}
-          >
-            <line x1="20" y1="20" x2="45" y2="90" stroke="#9edac6" strokeWidth="2.5" />
-            <circle cx="18" cy="20" r="5" fill={`url(#${id}-lavender)`} />
-            <circle cx="23" cy="28" r="5.5" fill={`url(#${id}-lavender)`} />
-            <circle cx="17" cy="38" r="6" fill={`url(#${id}-lavender)`} />
-            <circle cx="25" cy="46" r="6" fill={`url(#${id}-lavender)`} />
-            <circle cx="20" cy="56" r="5.5" fill={`url(#${id}-lavender)`} />
-          </g>
-
-          {/* Lavender Sprig (Right) */}
-          <g
-            transform="translate(195, 75)"
-            className={cn("transition-transform duration-500", bloomed && "rotate-[8deg]")}
-          >
-            <line x1="25" y1="20" x2="5" y2="95" stroke="#9edac6" strokeWidth="2.5" />
-            <circle cx="25" cy="20" r="5" fill={`url(#${id}-lavender)`} />
-            <circle cx="19" cy="29" r="5.5" fill={`url(#${id}-lavender)`} />
-            <circle cx="27" cy="39" r="6" fill={`url(#${id}-lavender)`} />
-            <circle cx="18" cy="48" r="6" fill={`url(#${id}-lavender)`} />
-            <circle cx="24" cy="58" r="5.5" fill={`url(#${id}-lavender)`} />
-          </g>
-
-          {/* Baby's Breath / Gypsophila (Dots & tiny stars) */}
-          <g opacity="0.9">
-            <circle cx="100" cy="115" r="4" fill="#ffffff" stroke="#f6b9c9" strokeWidth="1" />
-            <circle cx="110" cy="98" r="3.5" fill="#ffffff" stroke="#f6b9c9" strokeWidth="1" />
-            <circle cx="210" cy="110" r="4" fill="#ffffff" stroke="#cdbff0" strokeWidth="1" />
-            <circle cx="225" cy="95" r="3.5" fill="#ffffff" stroke="#cdbff0" strokeWidth="1" />
-            <circle cx="158" cy="65" r="4" fill="#ffffff" stroke="#fde9a8" strokeWidth="1" />
-          </g>
-
-          {/* Main Kawaii Rose (Center-Left) */}
-          <g
-            transform="translate(105, 95)"
-            className={cn(
-              "transition-all duration-700 ease-out origin-center",
-              bloomed ? "scale-110 rotate-[-4deg]" : "scale-100",
-            )}
-          >
-            <circle cx="30" cy="30" r="26" fill={`url(#${id}-rose)`} />
-            {/* Rose Swirl Petals */}
-            <path
-              d="M18 24 Q30 12 42 24 Q46 36 34 42 Q20 44 18 30 Q16 22 28 20 Q36 20 36 28 Q36 34 30 34"
-              stroke="#ffffff"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.85"
-            />
-          </g>
-
-          {/* Secondary Rose (Center-Right) */}
-          <g
-            transform="translate(155, 95)"
+            transform="translate(170, 105)"
             className={cn(
               "transition-all duration-700 ease-out origin-center delay-100",
-              bloomed ? "scale-110 rotate-[5deg]" : "scale-100",
+              bloomed ? "scale-110 -translate-y-1 rotate-[3deg]" : "scale-100"
             )}
           >
-            <circle cx="30" cy="30" r="26" fill={`url(#${id}-rose)`} />
-            <path
-              d="M42 24 Q30 12 18 24 Q14 36 26 42 Q40 44 42 30 Q44 22 32 20 Q24 20 24 28 Q24 34 30 34"
-              stroke="#ffffff"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.85"
-            />
-          </g>
+            {/* Outer Petals (20 Kelopak Panjang) */}
+            {renderCerberaPetals(20, 5, 26, 17, `url(#${id}-cerbera-peach-outer)`)}
 
-          {/* Sweet Yellow Daisy (Top Center) */}
-          <g
-            transform="translate(136, 50)"
-            className={cn(
-              "transition-all duration-700 ease-out origin-center delay-150",
-              bloomed ? "scale-120 -translate-y-2" : "scale-100",
-            )}
-          >
-            {/* Daisy Petals */}
+            {/* Inner Petals Layer (20 Kelopak Lebih Rapat) */}
+            {renderCerberaPetals(20, 4.2, 20, 13, `url(#${id}-cerbera-peach-inner)`)}
+
+            {/* Micro Florets Ring (Pinggiran Putik) */}
+            <circle cx="0" cy="0" r="14" fill="#ffd19a" stroke="#f89a6d" strokeWidth="1" />
+
+            {/* Cerbera Disc Eye (Pusat Khas Bunga Gerbera/Cerbera) */}
+            <circle cx="0" cy="0" r="11" fill={`url(#${id}-cerbera-eye)`} />
+            <circle cx="0" cy="0" r="7" fill="#4a2f24" opacity="0.9" />
+
+            {/* Golden Pollen Specks */}
             {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
-              <ellipse
+              <circle
                 key={deg}
-                cx="24"
-                cy="12"
-                rx="6"
-                ry="12"
-                transform={`rotate(${deg} 24 24)`}
-                fill="#ffffff"
-                stroke="#fff4e6"
-                strokeWidth="1"
+                cx={Math.cos((deg * Math.PI) / 180) * 8.5}
+                cy={Math.sin((deg * Math.PI) / 180) * 8.5}
+                r="1.2"
+                fill="#ffea9f"
               />
             ))}
-            {/* Daisy Core */}
-            <circle cx="24" cy="24" r="9" fill="#fde9a8" stroke="#f6b9c9" strokeWidth="1.5" />
+          </g>
+
+          {/* ════ BUNGA 2: CERBERA SWEET BLUSH PINK (Kiri) ════ */}
+          <g
+            transform="translate(115, 145)"
+            className={cn(
+              "transition-all duration-700 ease-out origin-center delay-150",
+              bloomed ? "scale-110 -rotate-[8deg]" : "scale-100"
+            )}
+          >
+            {/* Outer Petals */}
+            {renderCerberaPetals(18, 4.8, 23, 15, `url(#${id}-cerbera-pink-outer)`)}
+
+            {/* Inner Petals */}
+            {renderCerberaPetals(18, 3.8, 17, 11, `url(#${id}-cerbera-pink-inner)`)}
+
+            {/* Center Disc */}
+            <circle cx="0" cy="0" r="12" fill="#ffb4cc" stroke="#e87698" strokeWidth="1" />
+            <circle cx="0" cy="0" r="9.5" fill={`url(#${id}-cerbera-eye)`} />
+            <circle cx="0" cy="0" r="6" fill="#4a2f24" opacity="0.88" />
+
+            {/* Pollen ring */}
+            {[20, 65, 110, 155, 200, 245, 290, 335].map((deg) => (
+              <circle
+                key={deg}
+                cx={Math.cos((deg * Math.PI) / 180) * 7.5}
+                cy={Math.sin((deg * Math.PI) / 180) * 7.5}
+                r="1"
+                fill="#fff2a8"
+              />
+            ))}
+          </g>
+
+          {/* ════ BUNGA 3: CERBERA WARM CORAL & CREAM (Kanan) ════ */}
+          <g
+            transform="translate(225, 145)"
+            className={cn(
+              "transition-all duration-700 ease-out origin-center delay-200",
+              bloomed ? "scale-110 rotate-[8deg]" : "scale-100"
+            )}
+          >
+            {/* Outer Petals */}
+            {renderCerberaPetals(18, 4.8, 23, 15, `url(#${id}-cerbera-cream-outer)`)}
+
+            {/* Inner Petals */}
+            {renderCerberaPetals(18, 3.8, 17, 11, `url(#${id}-cerbera-cream-inner)`)}
+
+            {/* Center Disc */}
+            <circle cx="0" cy="0" r="12" fill="#fed6a6" stroke="#f49b6b" strokeWidth="1" />
+            <circle cx="0" cy="0" r="9.5" fill={`url(#${id}-cerbera-eye)`} />
+            <circle cx="0" cy="0" r="6" fill="#4a2f24" opacity="0.88" />
+
+            {/* Pollen ring */}
+            {[10, 55, 100, 145, 190, 235, 280, 325].map((deg) => (
+              <circle
+                key={deg}
+                cx={Math.cos((deg * Math.PI) / 180) * 7.5}
+                cy={Math.sin((deg * Math.PI) / 180) * 7.5}
+                r="1"
+                fill="#ffea9f"
+              />
+            ))}
           </g>
         </g>
 
-        {/* Front Wrapper Overlay with Gloss / Cellophane Sheen */}
+        {/* ─── KERTAS PEMBUNGKUS DEPAN (Front Cellophane Wrapper) ─── */}
         <path
-          d="M95 160 L160 325 L225 160 Q160 185 95 160 Z"
+          d="M85 190 L170 345 L255 190 Q170 215 85 190 Z"
           fill="var(--color-bg-elevated, #fffaf7)"
-          opacity="0.9"
+          stroke="var(--color-line, #ecdcdc)"
+          strokeWidth="1.5"
+          opacity="0.92"
         />
+        {/* Gloss highlight stripe pada kertas */}
         <path
-          d="M100 165 L160 320"
+          d="M98 198 L168 335"
           stroke="#ffffff"
-          strokeWidth="3"
+          strokeWidth="3.5"
           strokeLinecap="round"
-          opacity="0.7"
+          opacity="0.75"
         />
 
-        {/* Ribbon & Bow + Cat Charm */}
-        <g transform="translate(160, 275)">
+        {/* Label Badge "For Wulan 19" di Kertas Buket */}
+        <g transform="translate(170, 240)">
+          <rect x="-42" y="-11" width="84" height="22" rx="11" fill="#fff" stroke="#f6b9c9" strokeWidth="1.2" />
+          <text
+            x="0"
+            y="4"
+            textAnchor="middle"
+            fill="#e87698"
+            fontSize="9"
+            fontWeight="bold"
+            fontFamily="sans-serif"
+            letterSpacing="0.8"
+          >
+            3 CERBERA • 19TH
+          </text>
+        </g>
+
+        {/* ─── PITA & BOW BESAR + CHARM KUCING EMAS ─── */}
+        <g transform="translate(170, 295)">
           {/* Ribbon Loops */}
-          <ellipse cx="-18" cy="-2" rx="16" ry="10" transform="rotate(-15 -18 -2)" fill={`url(#${id}-ribbon)`} stroke="#fff" strokeWidth="1.5" />
-          <ellipse cx="18" cy="-2" rx="16" ry="10" transform="rotate(15 18 -2)" fill={`url(#${id}-ribbon)`} stroke="#fff" strokeWidth="1.5" />
+          <ellipse cx="-22" cy="-2" rx="20" ry="12" transform="rotate(-15 -22 -2)" fill={`url(#${id}-ribbon)`} stroke="#fff" strokeWidth="1.5" />
+          <ellipse cx="22" cy="-2" rx="20" ry="12" transform="rotate(15 22 -2)" fill={`url(#${id}-ribbon)`} stroke="#fff" strokeWidth="1.5" />
           {/* Ribbon Tails */}
-          <path d="M-6 4 Q-14 24 -22 30 Q-12 22 -4 8 Z" fill="#f6b9c9" />
-          <path d="M6 4 Q14 24 22 30 Q12 22 4 8 Z" fill="#cdbff0" />
+          <path d="M-8 4 Q-18 26 -28 35 Q-14 26 -4 10 Z" fill="#f6b9c9" />
+          <path d="M8 4 Q18 26 28 35 Q14 26 4 10 Z" fill="#cdbff0" />
           {/* Bow Knot */}
-          <circle cx="0" cy="0" r="7" fill="#e88fa9" stroke="#fff" strokeWidth="1.5" />
-          {/* Mini Gold Cat Charm hanging from bow */}
-          <g transform="translate(-8, 8) scale(0.7)">
-            <circle cx="11" cy="11" r="8" fill="#fde9a8" stroke="#e88fa9" strokeWidth="1.5" />
-            {/* Cat Ears on charm */}
-            <polygon points="5,6 7,1 10,6" fill="#fde9a8" stroke="#e88fa9" strokeWidth="1" />
-            <polygon points="12,6 15,1 17,6" fill="#fde9a8" stroke="#e88fa9" strokeWidth="1" />
+          <circle cx="0" cy="0" r="9" fill="#e88fa9" stroke="#fff" strokeWidth="1.5" />
+
+          {/* Charm Kucing Emas Menggantung */}
+          <g transform="translate(-10, 10) scale(0.9)">
+            <circle cx="11" cy="11" r="9" fill="#fde9a8" stroke="#e88fa9" strokeWidth="1.5" />
+            {/* Telinga Kucing pada Charm */}
+            <polygon points="4,6 6,0 10,6" fill="#fde9a8" stroke="#e88fa9" strokeWidth="1" />
+            <polygon points="12,6 16,0 18,6" fill="#fde9a8" stroke="#e88fa9" strokeWidth="1" />
+            {/* Hidung & Mata Lucu */}
+            <circle cx="8" cy="10" r="0.9" fill="#8a614d" />
+            <circle cx="14" cy="10" r="0.9" fill="#8a614d" />
+            <path d="M10 13 Q11 14.5 12 13" stroke="#8a614d" strokeWidth="0.8" fill="none" />
           </g>
         </g>
 
-        {/* Floating Sparkles when bloomed */}
+        {/* ─── FLOATING SPARKLES KETIKA MEKAR ─── */}
         {bloomed && (
           <g className="animate-twinkle">
-            <Sparkle className="text-pink-deep" width="16" height="16" x="50" y="70" />
-            <Sparkle className="text-butter" width="18" height="18" x="250" y="80" />
-            <Sparkle className="text-lavender-deep" width="14" height="14" x="150" y="25" />
+            <Sparkle className="text-pink-deep" width="18" height="18" x="45" y="65" />
+            <Sparkle className="text-butter" width="20" height="20" x="270" y="75" />
+            <Sparkle className="text-lavender-deep" width="16" height="16" x="162" y="20" />
+            <Sparkle className="text-pink" width="14" height="14" x="105" y="195" />
+            <Sparkle className="text-butter" width="14" height="14" x="225" y="195" />
           </g>
         )}
       </svg>
